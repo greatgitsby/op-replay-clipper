@@ -316,8 +316,7 @@ echo "$(nvidia-smi -q)" || true
 # Cleanup processes for easy fast testing.
 # Rely on Docker to clean up containers processes in production though
 function cleanup() {
-    tmux list-panes -s -t clipper -F "#{pane_pid} #{pane_current_command}" \
-    | grep -v tmux | awk '{print $1}' | xargs kill -9 || true
+        tmux kill-server || true
 		# Kill any processes named "replay" or "ui", in case they're still running
 		# somehow
 		pkill -f "replay" || true
